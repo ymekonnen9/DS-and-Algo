@@ -9,15 +9,19 @@ public class ScoreBoard {
   }
 
   public GameEntry[] sortBoardDescending(GameEntry[] brd) {
+    for (int i = 1; i < brd.length; i++) {
+      GameEntry key = brd[i];
+      int j = i - 1;
 
-    for (int anchor = 0; anchor < brd.length - 1; anchor++) {
-      for (int runner = anchor + 1; runner < brd.length; runner++) {
-        if (brd[runner] != null && brd[anchor] != null && brd[runner].getScore() > brd[anchor].getScore()) {
-          GameEntry temp = brd[anchor];
-          brd[anchor] = brd[runner];
-          brd[runner] = temp;
-        }
+      if (key == null)
+        continue;
+
+      while (j >= 0 && brd[j] != null && brd[j].getScore() < key.getScore()) {
+        brd[j + 1] = brd[j];
+        j--;
       }
+
+      brd[j + 1] = key;
     }
 
     return brd;
