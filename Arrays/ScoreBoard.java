@@ -41,6 +41,20 @@ public class ScoreBoard {
     }
   }
 
+  public GameEntry remove(int i) throws IndexOutOfBoundsException {
+    if (i < 0 || i >= board.length)
+      throw new IndexOutOfBoundsException();
+
+    GameEntry e = board[i];
+
+    for (int j = i; j < numOfEntries - 1; j++) {
+      board[j] = board[j + 1];
+    }
+    board[numOfEntries - 1] = null;
+    numOfEntries--;
+    return e;
+  }
+
   public class Main {
     public static void main(String[] args) {
       ScoreBoard board = new ScoreBoard(5);
