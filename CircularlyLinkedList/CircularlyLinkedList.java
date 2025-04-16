@@ -81,4 +81,25 @@ public class CircularlyLinkedList<E> {
     }
   }
 
+  public boolean equals(Object o) {
+    CircularlyLinkedList<E> other = (CircularlyLinkedList<E>) o;
+    if (other == null)
+      return false;
+    if (other.getClass() != this.getClass())
+      return false;
+    if (getSize() != other.getSize())
+      return false;
+    Node<E> walkA = tail.getNext();
+    Node<E> walkB = other.tail.getNext();
+    while (walkA != null) {
+      if (!walkA.getElement().equals(walkB.getElement()))
+        return false;
+      walkA = walkA.getNext();
+      walkB = walkB.getNext();
+    }
+
+    return true;
+
+  }
+
 }
