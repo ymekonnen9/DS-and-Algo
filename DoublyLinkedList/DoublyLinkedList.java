@@ -104,4 +104,23 @@ public class DoublyLinkedList<E> {
     return node.getElement();
   }
 
+  public boolean equals(Object o) {
+    DoublyLinkedList<E> other = (DoublyLinkedList<E>) o;
+    if (this == other)
+      return true;
+    if (size() != other.size()) {
+      return false;
+    }
+    Node<E> walkA = header.getNext();
+    Node<E> walkB = other.header.getNext();
+    for (int i = 0; i < size; i++) {
+      if (!walkA.getElement().equals(walkB.getElement())) {
+        return false;
+      }
+      walkA = walkA.getNext();
+      walkB = walkB.getNext();
+    }
+    return true;
+  }
+
 }
