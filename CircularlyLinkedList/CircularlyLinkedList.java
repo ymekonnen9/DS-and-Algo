@@ -1,6 +1,6 @@
 package CircularlyLinkedList;
 
-public class CircularlyLinkedList<E> {
+public class CircularlyLinkedList<E> implements Cloneable {
 
   private static class Node<E> {
     private E element;
@@ -91,7 +91,7 @@ public class CircularlyLinkedList<E> {
       return false;
     Node<E> walkA = tail.getNext();
     Node<E> walkB = other.tail.getNext();
-    while (walkA != null) {
+    for (int i = 0; i < size; i++) {
       if (!walkA.getElement().equals(walkB.getElement()))
         return false;
       walkA = walkA.getNext();
@@ -100,6 +100,29 @@ public class CircularlyLinkedList<E> {
 
     return true;
 
+  }
+
+  public CircularlyLinkedList<E> clone() throws CloneNotSupportedException {
+    CircularlyLinkedList<E> other = (CircularlyLinkedList<E>) super.clone();
+    Node<E> originalHead = tail.getNext();
+
+    Node<E> newHead = new Node<>(originalHead.getElement(), null);
+
+    Node<E> newTail = newHead;
+
+    Node<E> walk = originalHead.getNext();
+    for (int i = 1; i < size; i++) {
+      Node<E> newNode = new Node<>(walk.getElement(), null);
+      newTail.setNext(newNode);
+      newTail = newNode;
+    }
+
+    newTail.setNext(newHead);
+
+    other.tail = newTail;
+    other.size = size;
+
+    return other;
   }
 
 }
