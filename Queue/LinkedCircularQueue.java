@@ -14,7 +14,7 @@ public class LinkedCircularQueue<E> implements CircularQueue<E> {
   }
 
   public E dequeue() {
-    return circularlinkedlist.getFirst();
+    return circularlinkedlist.removeFirst();
   }
 
   public E first() {
