@@ -74,20 +74,20 @@ public class CircularlyLinkedList<E> implements Cloneable {
   public E removeFirst() {
     if (isEmpty())
       return null;
-    E e = tail.getNext().getElement();
-    tail.setNext(tail.getNext());
-    return e;
 
+    Node<E> head = tail.getNext();
+    if (head == tail) {
+      tail = null;
+    } else {
+      tail.setNext(head.getNext());
+    }
+    size--;
+    return head.getElement();
   }
 
   public void addLast(E ele) {
-    if (isEmpty()) {
-      Node<E> newLast = new Node<E>(ele, tail);
-      tail = newLast;
-    } else {
-      addFirst(ele);
-      tail = tail.getNext();
-    }
+    addFirst(ele);
+    tail = tail.getNext();
   }
 
   public boolean equals(Object o) {
