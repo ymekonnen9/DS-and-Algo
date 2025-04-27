@@ -46,4 +46,53 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
     header.setNext(trailer);
   }
 
+  private Node<E> validate(Position<E> p) throws IllegalArgumentException {
+    if (!(p instanceof Node<E>))
+      throw new IllegalArgumentException("P is not instance of a node");
+    Node<E> node = (Node<E>) p;
+    if (node.getNext() == null)
+      throw new IllegalArgumentException("p doesn't exist at that positionlist");
+    return node;
+  }
+
+  private Position<E> position(Node<E> node) {
+    if (node == header || node == trailer)
+      return null;
+    return node;
+  }
+
+  public Position<E> first() {
+    return position(header.getNext());
+  }
+
+  public Position<E> last() {
+    return position(trailer.getPrevious());
+  }
+
+  public Position<E> before(Position<E> p) {
+    Node<E> node = validate(p);
+    return position(node.getPrevious());
+  }
+
+  public Position<E> after(Position<E> p) {
+    Node<E> node = validate(p);
+    return position(node.getNext());
+  }
+
+  private Position<E> addBetween(Node<E> predecessor, Node<E> successor, E e) {
+    Node<E> newNode = new Node<E>(e, predecessor, successor);
+    predecessor.setNext(newNode);
+    successor.setPrevious(newNode);
+    size++;
+    return newNode;
+  }
+
+  public Position<E> addFirst(E e) {
+    return addBetween(header, header.getNext(), e);
+  }
+
+  public Position<E> addLast(E e) {
+    return addBetween(trailer.getPrevious(), trailer, e);
+  }
+
 }
