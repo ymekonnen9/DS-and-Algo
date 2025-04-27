@@ -66,7 +66,7 @@ public class DoublyLinkedList<E> implements Cloneable {
     return trailer.getPrevious().getElement();
   }
 
-  public void addInBetween(E ele, Node<E> nodeP, Node<E> nodeX) {
+  private void addInBetween(E ele, Node<E> nodeP, Node<E> nodeX) {
     Node<E> newNode = new Node<E>(ele, null, null);
     nodeP.setNext(newNode);
     newNode.setNext(nodeX);
@@ -75,7 +75,7 @@ public class DoublyLinkedList<E> implements Cloneable {
     size++;
   }
 
-  public E remove(Node<E> nod) {
+  private E remove(Node<E> nod) {
     E ele = nod.getElement();
     nod.getPrevious().setNext(nod.getNext());
     nod.getNext().setPrevious(nod.getPrevious());
