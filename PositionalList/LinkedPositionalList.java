@@ -34,6 +34,10 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
     public void setPrevious(Node<E> p) {
       this.previous = p;
     }
+
+    public void setElement(E e) {
+      this.element = e;
+    }
   }
 
   private Node<E> header;
@@ -93,6 +97,37 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 
   public Position<E> addLast(E e) {
     return addBetween(trailer.getPrevious(), trailer, e);
+  }
+
+  public Position<E> addBefore(Position<E> p, E e) {
+    Node<E> node = validate(p);
+    return addBetween(node.getPrevious(), node, e);
+  }
+
+  public Position<E> addAfter(Position<E> p, E e) {
+    Node<E> node = validate(p);
+    return addBetween(node, node.getNext(), e);
+  }
+
+  public E set(Position<E> p, E e) throws IllegalArgumentException {
+    Node<E> node = validate(p);
+    E answer = node.getElement();
+    node.setElement(e);
+    return answer;
+  }
+
+  public E remove(Position<E> p) throws IllegalArgumentException {
+    Node<E> node = validate(p);
+    Node<E> predecessor = node.getPrevious();
+    Node<E> successor = node.getNext();
+    predecessor.setNext(successor);
+    successor.setPrevious(predecessor);
+    size--;
+    E e = node.getElement();
+    node.setElement(null);
+    node.setNext(null);
+    node.setPrevious(null);
+    return e;
   }
 
 }
