@@ -130,4 +130,14 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
     return e;
   }
 
+  @Override
+  public int size() {
+    return size;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return size == 0;
+  }
+
 }
